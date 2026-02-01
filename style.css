@@ -1,0 +1,97 @@
+body {
+    background-color: #050505; /* Deep Obsidian */
+    color: #e0d0b0; /* Aged Gold */
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    overflow-x: hidden;
+    background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Ancient texture feel */
+}
+
+:root {
+    --obsidian: #050505;
+    --aged-gold: #c5a059;
+    --blood-rust: #8a0303;
+    --bio-violet: #6a0dad;
+    --paper-texture: rgba(200, 180, 150, 0.05);
+}
+
+@font-face {
+    font-family: 'CursedSerif';
+    src: local('Cinzel'), local('Garamond');
+}
+
+.ritual-mark {
+    cursor: pointer;
+    color: var(--blood-rust);
+    transition: all 0.5s ease;
+    text-decoration: underline dotted;
+}
+
+.ritual-mark:hover {
+    color: var(--bio-violet);
+    text-shadow: 0 0 10px var(--bio-violet);
+}
+
+.ink-bleed {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #888;
+    font-style: italic;
+    border-left: 1px solid var(--blood-rust);
+    padding-left: 1rem;
+    margin-top: 10px;
+}
+
+.ritual-mark:hover + .ink-bleed, .ink-bleed.revealed {
+    opacity: 1;
+    max-height: 500px;
+}
+
+/* Hall of the 33 */
+.vault-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    background: radial-gradient(circle, #111 0%, #050505 100%);
+    border: 2px solid #222;
+}
+
+.stone-slot {
+    aspect-ratio: 1;
+    background: #1a1a1a;
+    border: 1px solid var(--aged-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.stone-slot::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/rock.png');
+    opacity: 0.3;
+}
+
+.stone-slot:hover {
+    box-shadow: 0 0 15px var(--aged-gold);
+    transform: scale(1.05);
+}
+
+.stone-slot.pulsing {
+    animation: pulse-violet 2s infinite;
+}
+
+@keyframes pulse-violet {
+    0% { box-shadow: 0 0 5px var(--bio-violet); }
+    50% { box-shadow: 0 0 20px var(--bio-violet); }
+    100% { box-shadow: 0 0 5px var(--bio-violet); }
+}

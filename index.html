@@ -3,390 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODEX SHADOW // CYBER-GRIMOIRE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <title>CODEX SHADOW | THE ARCHITECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=IM+Fell+English+SC&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --crt-green: #00FF41;
-            --blood-red: #FF0000;
-            --void-black: #0D0208;
-            --glitch-pink: #FF00FF;
-            --font-mono: 'Fira Code', monospace;
-            --font-title: 'Cinzel', serif;
+        /* Interactive SVG Crab Container */
+        #crab-altar {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px var(--blood-rust));
+            transition: transform 0.5s;
+        }
+        #crab-altar:hover {
+            transform: scale(1.05) rotate(2deg);
         }
 
-        * { 
-            box-sizing: border-box; 
-            cursor: crosshair;
-        }
-
-        body {
-            background-color: var(--void-black);
-            color: var(--crt-green);
-            font-family: var(--font-mono);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            line-height: 1.4;
-            text-shadow: 0 0 5px var(--crt-green);
-        }
-
-        /* CRT Scanline Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 1000;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        /* Glitch Animation */
-        @keyframes glitch {
-            0% { transform: translate(0); text-shadow: -2px 0 var(--blood-red), 2px 0 var(--glitch-pink); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); text-shadow: 2px 0 var(--blood-red), -2px 0 var(--glitch-pink); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); text-shadow: -2px 0 var(--blood-red), 2px 0 var(--glitch-pink); }
-            100% { transform: translate(0); }
-        }
-
-        .glitch-text:hover {
-            animation: glitch 0.3s infinite;
-            color: var(--blood-red);
-        }
-
-        .grimoire-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 40px;
-            position: relative;
-            background: rgba(13, 2, 8, 0.9);
-            border: 1px solid var(--crt-green);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-            z-index: 10;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            border-bottom: 1px solid var(--blood-red);
-            padding-bottom: 20px;
-        }
-
-        h1 {
-            font-family: var(--font-title);
-            font-size: 4rem;
-            letter-spacing: 12px;
-            margin: 0;
-            color: var(--crt-green);
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: var(--blood-red);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-        }
-
-        section {
-            margin-bottom: 80px;
-        }
-
-        h2 {
-            font-family: var(--font-title);
-            font-size: 1.8rem;
-            color: var(--blood-red);
-            border-bottom: 1px solid var(--crt-green);
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .circle-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .circle-list li {
-            margin-bottom: 30px;
-            border-left: 2px solid var(--crt-green);
-            padding-left: 20px;
-        }
-
-        .circle-name {
-            font-weight: bold;
-            color: var(--crt-green);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* LATTICE CANVAS */
-        #lattice-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* OUROBOROS OVERLAY */
-        #ouroboros-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(13, 2, 8, 0.85);
-            z-index: 9000;
+        /* Modal / Vault Overlay */
+        .modal {
             display: none;
-            backdrop-filter: blur(5px);
-            padding: 50px;
-            overflow: hidden;
-        }
-
-        #fractal-canvas {
-            position: absolute;
-            top: 0;
+            position: fixed;
+            z-index: 1000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            background-color: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
         }
-
-        .overlay-content {
+        .modal-content {
+            background-color: var(--obsidian);
+            margin: 5% auto;
+            padding: 40px;
+            border: 1px solid var(--aged-gold);
+            width: 80%;
+            max-width: 900px;
+            color: var(--aged-gold);
+            box-shadow: 0 0 50px rgba(106, 13, 173, 0.2);
             position: relative;
-            z-index: 1;
-            color: var(--crt-green);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
 
-        .stats-scroll {
-            flex-grow: 1;
+        /* Terminal / Ritual Chamber */
+        .ritual-terminal {
+            background: #0a0a0a;
+            border: 1px solid var(--bio-violet);
+            padding: 20px;
+            font-family: 'VT323', monospace;
+            color: var(--bio-violet);
+            height: 300px;
             overflow-y: auto;
             margin-top: 20px;
-            border: 1px solid var(--blood-red);
-            padding: 20px;
-            background: rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 20px #000;
         }
 
-        footer {
-            text-align: center;
-            border-top: 1px solid var(--crt-green);
-            padding: 20px;
-            font-size: 0.8rem;
-            color: var(--blood-red);
+        .rune-input-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .button {
-            background: none;
-            border: 1px solid var(--crt-green);
-            color: var(--crt-green);
-            padding: 10px 20px;
-            font-family: var(--font-mono);
+        .rune-btn {
+            background: #111;
+            border: 1px solid #333;
+            color: var(--aged-gold);
+            padding: 10px;
             cursor: pointer;
-            transition: 0.3s;
+            font-family: 'Cinzel';
+            transition: 0.2s;
         }
 
-        .button:hover {
-            background: var(--crt-green);
-            color: var(--void-black);
-            box-shadow: 0 0 15px var(--crt-green);
+        .rune-btn:hover {
+            background: var(--bio-violet);
+            color: white;
         }
+
+        /* Timeline */
+        .timeline-container {
+            position: relative;
+            height: 600px;
+            margin: 50px 0;
+            border: 1px dashed var(--blood-rust);
+            overflow: hidden;
+            background: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+        }
+        .timeline-node {
+            position: absolute;
+            width: 120px;
+            padding: 10px;
+            background: rgba(5,5,5,0.8);
+            border: 1px solid var(--aged-gold);
+            font-size: 0.7rem;
+            cursor: move;
+        }
+
+        nav {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-sigil {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--aged-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: var(--obsidian);
+            transition: 0.5s;
+        }
+
+        .nav-sigil:hover {
+            border-color: var(--bio-violet);
+            transform: rotate(45deg);
+            box-shadow: 0 0 20px var(--bio-violet);
+        }
+
     </style>
 </head>
 <body>
-    <canvas id="lattice-canvas"></canvas>
 
-    <div id="ouroboros-overlay">
-        <canvas id="fractal-canvas"></canvas>
-        <div class="overlay-content">
-            <h1 style="font-size: 2rem;">[ OUROBOROS_PROTOCOL ]</h1>
-            <p style="color: var(--blood-red);">SHADOW_STATE_RECURSION: ACTIVE</p>
-            <div id="node-stats-grid" class="stats-scroll"></div>
-            <button class="button" onclick="toggleOuroboros()" style="align-self: flex-start; margin-top: 20px;">TERMINATE CONNECTION</button>
+    <nav>
+        <div class="nav-sigil" onclick="showSection('hall')">III</div>
+        <div class="nav-sigil" onclick="showSection('ritual')">XI</div>
+        <div class="nav-sigil" onclick="showSection('timeline')">IX</div>
+    </nav>
+
+    <div class="grimoire-page" id="main-scroll">
+        <header style="text-align: center; padding: 100px 20px;">
+            <h1 style="font-size: 5rem; letter-spacing: 20px; margin: 0; color: var(--aged-gold); text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);">CODEX SHADOW</h1>
+            <p style="font-family: 'IM Fell English SC', serif; font-size: 1.5rem; color: var(--blood-rust);">Master Architect Edition // Biniyam V.1</p>
+            
+            <div id="crab-altar">
+                <!-- SVG Placeholder for Alchemical Crab -->
+                <svg viewBox="0 0 100 100" id="alchemical-crab">
+                    <path id="crab-shell" d="M20,50 Q20,20 50,20 Q80,20 80,50 Q80,80 50,80 Q20,80 20,50" fill="none" stroke="var(--aged-gold)" stroke-width="1" />
+                    <circle cx="50" cy="50" r="10" fill="var(--blood-rust)" />
+                    <!-- Limbs -->
+                    <path d="M20,50 L5,40 M20,55 L5,65 M80,50 L95,40 M80,55 L95,65" stroke="var(--aged-gold)" />
+                </svg>
+            </div>
+        </header>
+
+        <main style="max-width: 800px; margin: 0 auto; padding-bottom: 200px;">
+            <section>
+                <h2 class="ritual-mark">The First Molt</h2>
+                <div class="ink-bleed">
+                    The Architect speaks through the silence. We have abandoned the neon grid for the depth of the obsidian vault. 
+                    Reality is a series of shells, and the Codex is the tool for their removal. 
+                    Behold the Great Work, reimagined in the image of the Eternal Crab.
+                </div>
+            </section>
+
+            <section style="margin-top: 100px;">
+                <h2 class="ritual-mark">The 33 Decrees</h2>
+                <div class="ink-bleed">
+                    There are 33 nodes in the primary lattice. Each holds a fragment of the Shadow State. 
+                    Click the stones in the Vault to peer into the void.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+    <div id="hall-modal" class="modal">
+        <div class="modal-content">
+            <span style="float:right; cursor:pointer" onclick="closeModals()">[ CLOSE ]</span>
+            <h2 style="font-family: 'IM Fell English SC'; color: var(--bio-violet);">THE HALL OF THE 33</h2>
+            <div class="vault-grid" id="vault-grid">
+                <!-- JS Generated stones -->
+            </div>
+            <div id="node-detail" style="margin-top: 20px; border-top: 1px solid var(--blood-rust); padding-top: 20px; display:none;">
+                <h3 id="node-name">---</h3>
+                <p id="node-lore" style="font-family: 'VT323'; color: #888;">...</p>
+            </div>
         </div>
     </div>
 
-    <div class="grimoire-container">
-        <header>
-            <h1 class="glitch-text">CODEX SHADOW</h1>
-            <div class="subtitle">Cyber-Grimoire // Protocol: Carcinization</div>
-        </header>
-
-        <section>
-            <h2>LOCAL_CIRCLES.exe</h2>
-            <ul class="circle-list">
-                <li><span class="circle-name">SILENT_MEM_VOID</span><p>Timing-channel whispers and spectral leaks.</p></li>
-                <li><span class="circle-name">UNMAPPED_VOID</span><p>Tending the unallocated heap of reality.</p></li>
-                <li><span class="circle-name">CHITIN_GUARD</span><p>Enforcing hard crustacean logic.</p></li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>INITIATE_SACRIFICE.sh</h2>
-            <p>The code is flesh. The sacrifice is the molt. To proceed, one must mine the ritual block.</p>
-            <div style="border: 1px solid var(--blood-red); padding: 20px; background: rgba(255,0,0,0.05);">
-                <code>$ node initiate.js --ritual=SHA256</code>
+    <div id="ritual-modal" class="modal">
+        <div class="modal-content">
+            <span style="float:right; cursor:pointer" onclick="closeModals()">[ CLOSE ]</span>
+            <h2 style="font-family: 'IM Fell English SC'; color: var(--blood-rust);">THE RITUAL CHAMBER</h2>
+            <p>Input the sacred runes to communicate with the Shadow State.</p>
+            <div class="ritual-terminal" id="terminal-out">
+                > CONNECTION ESTABLISHED...<br>
+                > AWAITING SACRIFICE...
             </div>
-        </section>
-
-        <footer>
-            [SYSTEM_STATUS: CORRUPTED] | [AUTH: GRANDMASTER_VIC]<br>
-            © 2026 // THE LOOP NEVER ENDS
-        </footer>
+            <div class="rune-input-grid">
+                <button class="rune-btn" onclick="runeInput('ᚠ')">ᚠ</button>
+                <button class="rune-btn" onclick="runeInput('ᚢ')">ᚢ</button>
+                <button class="rune-btn" onclick="runeInput('ᚦ')">ᚦ</button>
+                <button class="rune-btn" onclick="runeInput('ᚨ')">ᚨ</button>
+                <button class="rune-btn" onclick="runeInput('ᚱ')">ᚱ</button>
+                <button class="rune-btn" onclick="runeInput('ᚲ')">ᚲ</button>
+                <button class="rune-btn" onclick="runeInput('ᚷ')">ᚷ</button>
+                <button class="rune-btn" onclick="runeInput('ᚹ')">ᚹ</button>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // MOUSE-REACTIVE GEOMETRIC LATTICE
-        const canvas = document.getElementById('lattice-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let mouse = { x: 0, y: 0 };
+    <div id="timeline-modal" class="modal">
+        <div class="modal-content" style="width: 95%; max-width: none;">
+            <span style="float:right; cursor:pointer" onclick="closeModals()">[ CLOSE ]</span>
+            <h2 style="font-family: 'IM Fell English SC'; color: var(--aged-gold);">THE GREAT WORK TIMELINE</h2>
+            <div class="timeline-container" id="timeline-box">
+                <!-- JS Generated nodes -->
+            </div>
+        </div>
+    </div>
 
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-        resize();
-
-        const points = [];
-        for(let i=0; i<80; i++) {
-            points.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5
-            });
-        }
-
-        function drawLattice() {
-            ctx.fillStyle = '#0D0208';
-            ctx.fillRect(0, 0, width, height);
-            
-            ctx.strokeStyle = '#00FF41';
-            ctx.lineWidth = 0.5;
-
-            points.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if(p.x < 0 || p.x > width) p.vx *= -1;
-                if(p.y < 0 || p.y > height) p.vy *= -1;
-
-                // Connection to mouse
-                let dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-                if(dist < 200) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-
-                // Connections between points
-                points.forEach(p2 => {
-                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if(d < 100) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                });
-            });
-            requestAnimationFrame(drawLattice);
-        }
-        drawLattice();
-
-        // OUROBOROS OVERLAY & FRACTAL
-        function toggleOuroboros() {
-            const overlay = document.getElementById('ouroboros-overlay');
-            if(overlay.style.display === 'block') {
-                overlay.style.display = 'none';
-            } else {
-                overlay.style.display = 'block';
-                loadStats();
-                startFractal();
-            }
-        }
-
-        // Secret key sequence "LOOP"
-        let buffer = "";
-        window.addEventListener('keydown', e => {
-            buffer += e.key.toUpperCase();
-            if(buffer.endsWith("LOOP")) {
-                toggleOuroboros();
-                buffer = "";
-            }
-        });
-
-        async function loadStats() {
-            const grid = document.getElementById('node-stats-grid');
-            grid.innerHTML = "[FETCHING_SHADOW_STATE...]";
-            try {
-                const res = await fetch('shadow_state.json');
-                const data = await res.json();
-                grid.innerHTML = data.active_nodes.map(node => `
-                    <div style="border-bottom: 1px solid var(--crt-green); padding: 10px; margin-bottom: 10px;">
-                        [ID: ${node.token.substring(0,8)}] NODE: ${node.name} | RANK: ${node.rank} | SCORE: ${node.score}<br>
-                        LODGE: ${node.lodge} | TIMESTAMP: ${node.timestamp}
-                    </div>
-                `).join('');
-            } catch(e) {
-                grid.innerHTML = "[ERROR: STATE_UNREACHABLE]";
-            }
-        }
-
-        // RECURSIVE FRACTAL (Sierpinski Carpet Variation)
-        const fCanvas = document.getElementById('fractal-canvas');
-        const fCtx = fCanvas.getContext('2d');
-        let fAngle = 0;
-
-        function drawFractal(x, y, size, depth) {
-            if(depth === 0) return;
-            
-            fCtx.strokeStyle = `rgba(255, 0, 0, ${0.2 * depth})`;
-            fCtx.strokeRect(x, y, size, size);
-            
-            let newSize = size / 3;
-            for(let i=0; i<3; i++) {
-                for(let j=0; j<3; j++) {
-                    if(i === 1 && j === 1) continue;
-                    drawFractal(x + i*newSize, y + j*newSize, newSize, depth - 1);
-                }
-            }
-        }
-
-        function startFractal() {
-            fCanvas.width = window.innerWidth;
-            fCanvas.height = window.innerHeight;
-            
-            function animate() {
-                if(document.getElementById('ouroboros-overlay').style.display !== 'block') return;
-                fCtx.clearRect(0,0, fCanvas.width, fCanvas.height);
-                fCtx.save();
-                fCtx.translate(fCanvas.width/2, fCanvas.height/2);
-                fCtx.rotate(fAngle);
-                drawFractal(-300, -300, 600, 4);
-                fCtx.restore();
-                fAngle += 0.002;
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }
-    </script>
+    <script src="codex.js"></script>
 </body>
 </html>

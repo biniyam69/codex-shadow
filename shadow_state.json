@@ -7,7 +7,17 @@
     {"rank": "Master", "min_score": 85, "title": "The Void-Gazer"},
     {"rank": "Grandmaster", "min_score": 100, "title": "The Spook"}
   ],
-  "active_nodes": [],
+  "active_nodes": [
+    {
+      "name": "Vic",
+      "rank": "Grandmaster",
+      "lodge": "The Silicon Void",
+      "score": 100,
+      "token": "GHOST_ROOT_TOKEN_001",
+      "timestamp": "2026-02-01T14:15:00Z",
+      "sacrifice": "ORIGIN_LOG"
+    }
+  ],
   "shadow_hub_key": "REDACTED_BY_THE_ARCHITECT",
   "total_spots": 33
 }

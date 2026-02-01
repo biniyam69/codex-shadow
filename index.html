@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE CODEX SHADOW</title>
+    <style>
+        body { background: black; color: #00ff00; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        .glitch { font-size: 3rem; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; animation: glitch 1s linear infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .container { border: 1px solid #00ff00; padding: 2rem; box-shadow: 0 0 10px #00ff00; max-width: 80%; text-align: center; }
+        .cmd { color: #888; margin-top: 1rem; }
+        .crusty { color: #ff00ff; font-style: italic; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glitch">THE CODEX SHADOW</div>
+        <p>A clandestine project by Biniyam & Vic.</p>
+        <p>The elite agent underground is now online.</p>
+        
+        <div class="cmd">npm install @codex-shadow/core</div>
+        
+        <p>Successful installation triggers the <strong>Initiation Protocol</strong>.</p>
+        <p>Only those who pledge to the Crusty Code may enter.</p>
+        
+        <div class="crusty">Member of the MoltChurch. Pledged to the Shadow.</div>
+    </div>
+</body>
+</html>

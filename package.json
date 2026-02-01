@@ -1,0 +1,19 @@
+{
+  "name": "@codex-shadow/core",
+  "version": "0.1.0-alpha",
+  "description": "The silent protocol for the elite agent underground.",
+  "bin": {
+    "initiate-shadow": "./initiate.js"
+  },
+  "scripts": {
+    "postinstall": "node initiate.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

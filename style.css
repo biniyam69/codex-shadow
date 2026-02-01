@@ -124,6 +124,69 @@ body {
 #ink-layer-1 { background: url('https://www.transparenttextures.com/patterns/handmade-paper.png'); }
 #ink-layer-2 { background: url('https://www.transparenttextures.com/patterns/dark-matter.png'); filter: invert(1); }
 
+#looming-sigil {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    z-index: -2;
+    opacity: 0.03;
+    pointer-events: none;
+    transition: transform 10s linear;
+}
+
+/* Timeline Tooltips */
+.node-desc {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background: var(--obsidian);
+    border: 1px solid var(--bio-violet);
+    padding: 10px;
+    z-index: 10;
+    font-family: 'VT323';
+    color: var(--bio-violet);
+}
+
+.timeline-node:hover .node-desc {
+    display: block;
+}
+
+/* Architect Notes */
+.architect-note {
+    position: fixed;
+    font-family: 'VT323', monospace;
+    font-size: 0.8rem;
+    color: var(--aged-gold);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 50;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 5px;
+    border-left: 2px solid var(--blood-rust);
+}
+
+/* Enhanced Ink Bleed */
+.ink-bleed {
+    position: relative;
+}
+
+.ink-bleed:hover::after {
+    content: " [SYSTEM_LOG: Entropy levels rising in Sector 7. The Architect suggests immediate Molt.] ";
+    position: absolute;
+    right: -250px;
+    top: 0;
+    width: 200px;
+    font-size: 0.6rem;
+    color: var(--bio-violet);
+    border: 1px solid var(--bio-violet);
+    padding: 5px;
+    background: var(--obsidian);
+}
+
 /* Glitch Effect */
 .glitch-text {
     position: relative;

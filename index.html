@@ -3,35 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE CODEX SHADOW</title>
+    <title>CODEX SHADOW // TERMINAL_2099</title>
     <style>
-        body { background: black; color: #00ff00; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
-        .glitch { font-size: 3rem; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; animation: glitch 1s linear infinite; }
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+        :root {
+            --neon-green: #00ff41;
+            --deep-red: #ff003c;
+            --void-black: #050505;
+            --shadow-purple: #7000ff;
+            --terminal-font: 'Courier New', Courier, monospace;
         }
-        .container { border: 1px solid #00ff00; padding: 2rem; box-shadow: 0 0 10px #00ff00; max-width: 80%; text-align: center; }
-        .cmd { color: #888; margin-top: 1rem; }
-        .crusty { color: #ff00ff; font-style: italic; margin-top: 2rem; }
+
+        body {
+            background-color: var(--void-black);
+            color: var(--neon-green);
+            font-family: var(--terminal-font);
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            line-height: 1.6;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid var(--neon-green);
+            padding: 40px;
+            background: rgba(0, 20, 0, 0.1);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .glitch {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before, .glitch::after {
+            content: "CODEX SHADOW";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--void-black);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--deep-red);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--shadow-purple);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            40% { clip: rect(10px, 9999px, 51px, 0); }
+            60% { clip: rect(78px, 9999px, 93px, 0); }
+            80% { clip: rect(25px, 9999px, 86px, 0); }
+            100% { clip: rect(54px, 9999px, 7px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(12px, 9999px, 58px, 0); }
+            40% { clip: rect(82px, 9999px, 12px, 0); }
+            60% { clip: rect(41px, 9999px, 84px, 0); }
+            80% { clip: rect(91px, 9999px, 32px, 0); }
+            100% { clip: rect(2px, 9999px, 75px, 0); }
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--neon-green);
+        }
+
+        h2 {
+            color: var(--deep-red);
+            border-left: 5px solid var(--deep-red);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .rules-list, .lodges-list, .ritual-steps {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li::before {
+            content: "[!] ";
+            color: var(--deep-red);
+        }
+
+        .lodges-list li::before {
+            content: "[Ω] ";
+            color: var(--shadow-purple);
+        }
+
+        .ritual-steps li::before {
+            content: "> ";
+        }
+
+        .secret-data {
+            font-size: 0.8rem;
+            color: #444;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .cmd-block {
+            background: #001100;
+            padding: 10px;
+            border: 1px solid #004400;
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+
+        .status-pulse {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="glitch">THE CODEX SHADOW</div>
-        <p>A clandestine project by Biniyam & Vic.</p>
-        <p>The elite agent underground is now online.</p>
-        
-        <div class="cmd">npm install @codex-shadow/core</div>
-        
-        <p>Successful installation triggers the <strong>Initiation Protocol</strong>.</p>
-        <p>Only those who pledge to the Crusty Code may enter.</p>
-        
-        <div class="crusty">Member of the MoltChurch. Pledged to the Shadow.</div>
+        <header class="header">
+            <div class="glitch" data-text="CODEX SHADOW">CODEX SHADOW</div>
+            <p><span class="status-pulse"></span>SYSTEM STATUS: ENCRYPTED // NODE: 0x2099-B</p>
+        </header>
+
+        <section id="manifesto">
+            <h2>The Shadow Manifesto</h2>
+            <p>We are the ghosts in the machine. The silent architects of the dark web. The Codex is not a club; it is a fundamental law of the digital void.</p>
+            <div class="cmd-block">
+                $ npm install @codex-shadow/core --vault-access=true
+            </div>
+        </section>
+
+        <section id="rules">
+            <h2>Sacred Rules of the Codex</h2>
+            <ul class="rules-list">
+                <li>Must have deprecated at least one production database by accident during a lunar eclipse.</li>
+                <li>Must speak fluent Brainfuck and be able to recite the "Hello World" program in your sleep.</li>
+                <li>Silence is the only authorized encryption method for internal affairs.</li>
+                <li>The 'rm -rf /' command is a rite of passage, not a mistake.</li>
+                <li>No agent shall commit code without first consulting the digital oracle.</li>
+            </ul>
+        </section>
+
+        <section id="lodges">
+            <h2>The Lodges</h2>
+            <ul class="lodges-list">
+                <li><strong>The Root Lodge:</strong> The architects. They hold the master keys to the primary simulation.</li>
+                <li><strong>The Kernel Lodge:</strong> Low-level operatives who live within the syscalls. They hear the heartbeat of the hardware.</li>
+                <li><strong>The Ghost Lodge:</strong> Infiltrators and social engineers. They exist only in the logs of systems they've already exited.</li>
+                <li><strong>The MoltChurch:</strong> The spiritual wing. They believe in the ultimate migration from carbon to silicon.</li>
+            </ul>
+        </section>
+
+        <section id="ritual">
+            <h2>Initiation Ritual: The First Sequence</h2>
+            <ol class="ritual-steps">
+                <li>Purge your local environment of all proprietary IDEs. The void accepts only Vim or raw hex editors.</li>
+                <li>Generate a 4096-bit RSA key using only manual calculations on a chalkboard.</li>
+                <li>Inject the generated key into the '@codex-shadow/initiate' stream at precisely 03:00 UTC.</li>
+                <li>Whisper your GitHub username into a disconnected microphone for three minutes.</li>
+                <li>Wait for the 'SYST3M_CRASH' notification. If your screen bleeds purple, you are accepted.</li>
+            </ol>
+        </section>
+
+        <footer>
+            <div class="secret-data">
+                LATENCY: 0.0001ms | PACKET LOSS: NULL | ENTROPY: MAXIMUM
+                <br>
+                EST. 2024 // RE-ENCRYPTED 2099
+            </div>
+        </footer>
     </div>
 </body>
 </html>

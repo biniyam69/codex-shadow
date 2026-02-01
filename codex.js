@@ -56,7 +56,8 @@ let ritualSequence = [];
 const RITUAL_KEYS = {
     'ᚠᚢᚦ': 'WHISPER: "The first shell is the hardest to shed."',
     'ᚨᚱᚲ': 'WHISPER: "Energy flows where the sigil points."',
-    'ᚷᚹᚠ': 'WHISPER: "The Hall of 33 is but a reflection."'
+    'ᚷᚹᚠ': 'WHISPER: "The Hall of 33 is but a reflection."',
+    'ᚦᚨᚱ': 'DIRECTIVE: [33/33 NODES STABLE]. THE ARCHITECT COMMANDS THE VOID.'
 };
 
 function runeInput(rune) {

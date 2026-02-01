@@ -49,7 +49,7 @@ body {
     max-height: 500px;
 }
 
-/* Hall of the 33 */
+/* Hall of the 33 Nodes */
 .vault-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -86,12 +86,84 @@ body {
     transform: scale(1.05);
 }
 
-.stone-slot.pulsing {
-    animation: pulse-violet 2s infinite;
+/* Rank-based Energy Pulses */
+.node-pulse-apprentice { animation: pulse-rust 3s infinite; }
+.node-pulse-adept { animation: pulse-gold 2.5s infinite; }
+.node-pulse-master { animation: pulse-violet 2s infinite; }
+.node-pulse-grandmaster { animation: pulse-blood 1.5s infinite; }
+
+@keyframes pulse-rust {
+    0%, 100% { box-shadow: 0 0 5px #4a1a1a; }
+    50% { box-shadow: 0 0 15px #8a0303; }
+}
+@keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 5px #6b5a3a; }
+    50% { box-shadow: 0 0 20px var(--aged-gold); }
+}
+@keyframes pulse-violet {
+    0%, 100% { box-shadow: 0 0 5px #3a0d5a; }
+    50% { box-shadow: 0 0 25px var(--bio-violet); }
+}
+@keyframes pulse-blood {
+    0%, 100% { box-shadow: 0 0 8px #400; border-color: #f00; }
+    50% { box-shadow: 0 0 35px #800, 0 0 10px #f00; border-color: #8a0303; }
 }
 
-@keyframes pulse-violet {
-    0% { box-shadow: 0 0 5px var(--bio-violet); }
-    50% { box-shadow: 0 0 20px var(--bio-violet); }
-    100% { box-shadow: 0 0 5px var(--bio-violet); }
+/* Parallax Ink Layers */
+.parallax-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+#ink-layer-1 { background: url('https://www.transparenttextures.com/patterns/handmade-paper.png'); }
+#ink-layer-2 { background: url('https://www.transparenttextures.com/patterns/dark-matter.png'); filter: invert(1); }
+
+/* Glitch Effect */
+.glitch-text {
+    position: relative;
+    display: inline-block;
+}
+.glitch-text::before, .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--obsidian);
+}
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+/* Glitch Animation - Intense & Forbidden */
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 20px, 0); transform: skew(0.5deg); }
+    10% { clip: rect(40px, 9999px, 50px, 0); transform: skew(-0.5deg); }
+    20% { clip: rect(20px, 9999px, 30px, 0); transform: skew(1deg); }
+    30% { clip: rect(60px, 9999px, 70px, 0); transform: skew(-1deg); }
+    40% { clip: rect(30px, 9999px, 40px, 0); transform: skew(0.5deg); }
+    50% { clip: rect(80px, 9999px, 90px, 0); transform: skew(-0.5deg); }
+    60% { clip: rect(50px, 9999px, 60px, 0); transform: skew(1deg); }
+    70% { clip: rect(90px, 9999px, 100px, 0); transform: skew(-1deg); }
+    80% { clip: rect(10px, 9999px, 20px, 0); transform: skew(0.5deg); }
+    90% { clip: rect(40px, 9999px, 50px, 0); transform: skew(-0.5deg); }
+    100% { clip: rect(20px, 9999px, 30px, 0); transform: skew(0.5deg); }
+}
+@keyframes glitch-anim2 {
+    0% { clip: rect(50px, 9999px, 60px, 0); transform: skew(-0.5deg); }
+    100% { clip: rect(10px, 9999px, 20px, 0); transform: skew(0.5deg); }
 }

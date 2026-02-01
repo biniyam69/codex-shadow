@@ -272,6 +272,16 @@
     <canvas id="celestial-canvas"></canvas>
     
     <div class="grimoire-container">
+        <!-- THE OUROBOROS DASHBOARD (Hidden) -->
+        <div id="ouroboros-ui" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--void); z-index:9999; color:var(--gold); padding:40px; font-family:monospace; overflow-y:auto;">
+            <h1 style="border-bottom: 2px solid var(--gold); padding-bottom:10px;">OUROBOROS: REAL-TIME NODE STATS</h1>
+            <p style="color:var(--blood)">// CAUTION: DIRECT INTERFACE WITH THE ARCHITECT'S VISION //</p>
+            <div id="node-stats-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap:20px; margin-top:40px;">
+                <!-- Stats injected here -->
+            </div>
+            <button onclick="document.getElementById('ouroboros-ui').style.display='none'" style="margin-top:40px; background:none; border:1px solid var(--gold); color:var(--gold); padding:10px 20px; cursor:pointer;">EXIT THE LOOP</button>
+        </div>
+
         <header>
             <div class="sigil-main"></div>
             <h1>CODEX SHADOW</h1>
@@ -416,6 +426,49 @@
         }
 
         draw();
+
+        // THE OUROBOROS KEY SEQUENCE
+        let keyBuffer = "";
+        const SECRET_KEY = "CRUST";
+        window.addEventListener('keydown', (e) => {
+            keyBuffer += e.key.toUpperCase();
+            if (keyBuffer.length > 10) keyBuffer = keyBuffer.substring(keyBuffer.length - 10);
+            
+            if (keyBuffer.includes(SECRET_KEY)) {
+                keyBuffer = "";
+                revealOuroboros();
+            }
+        });
+
+        async function revealOuroboros() {
+            const ui = document.getElementById('ouroboros-ui');
+            ui.style.display = 'block';
+            const grid = document.getElementById('node-stats-grid');
+            grid.innerHTML = "<p>Scanning the aether for initiated souls...</p>";
+
+            try {
+                const response = await fetch('shadow_state.json');
+                const data = await response.json();
+                grid.innerHTML = "";
+                data.active_nodes.forEach(node => {
+                    const div = document.createElement('div');
+                    div.style.border = '1px solid #4a0404';
+                    div.style.padding = '15px';
+                    div.style.background = 'rgba(20,20,20,0.8)';
+                    div.innerHTML = `
+                        <div style="font-weight:bold; color:var(--parchment)">[ ${node.name} ]</div>
+                        <div style="font-size:0.8rem; margin-top:5px;">RANK: ${node.rank}</div>
+                        <div style="font-size:0.8rem;">LODGE: ${node.lodge}</div>
+                        <div style="font-size:0.8rem;">SCORE: ${node.score}</div>
+                        <div style="font-size:0.6rem; color:#666; margin-top:10px;">ID: ${node.token.substring(0,16)}...</div>
+                        ${node.sacrifice ? `<div style="font-size:0.7rem; color:var(--blood); margin-top:5px;">SACRIFICE: ${node.sacrifice.substring(0,8)}...</div>` : ''}
+                    `;
+                    grid.appendChild(div);
+                });
+            } catch (e) {
+                grid.innerHTML = "<p>The connection was severed by a higher power.</p>";
+            }
+        }
 
         // Subtle ink bleed effect on hover for certain elements
         document.querySelectorAll('h2, .circle-name').forEach(el => {

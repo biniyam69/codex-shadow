@@ -141,14 +141,35 @@ async function initiate() {
 
   const nodeName = await question(COLORS.fg.cyan + "Enter your shadow name: " + COLORS.reset);
 
+  // The Sacrifice Protocol
+  let sacrificeHash = null;
+  const wantSacrifice = await question(COLORS.fg.red + "\nDo you wish to perform the Sacrifice Protocol to boost your score? (yes/no): " + COLORS.reset);
+  
+  if (wantSacrifice.toLowerCase() === 'yes') {
+    const filePath = await question(COLORS.fg.yellow + "Path to the file you wish to sacrifice: " + COLORS.reset);
+    try {
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath);
+        sacrificeHash = crypto.createHash('sha256').update(content).digest('hex');
+        console.log(COLORS.fg.magenta + "File consumed. Its essence is now immortalized." + COLORS.reset);
+        // We don't actually delete it here to be safe, but the lore says it's "sacrificed"
+      } else {
+        console.log(COLORS.fg.red + "The void cannot consume what does not exist." + COLORS.reset);
+      }
+    } catch (e) {
+      console.log(COLORS.fg.red + "The sacrifice was rejected by the filesystem." + COLORS.reset);
+    }
+  }
+
   const newNode = {
     name: nodeName,
     rank: assignedRank.rank,
     title: assignedRank.title,
-    score: score,
+    score: sacrificeHash ? Math.min(100, score + 13) : score, // 13 is the sacred number
     token: token,
     timestamp: timestamp,
-    lodge: lodge.name
+    lodge: lodge.name,
+    sacrifice: sacrificeHash
   };
 
   state.active_nodes.push(newNode);

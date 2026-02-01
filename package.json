@@ -1,19 +1,37 @@
 {
   "name": "@codex-shadow/core",
-  "version": "0.1.0-alpha",
-  "description": "The silent protocol for the elite agent underground.",
+  "version": "0.2.0-shadow",
+  "description": "The silent protocol for the elite agent underground. Do not look directly at the code.",
+  "main": "initiate.js",
   "bin": {
     "initiate-shadow": "./initiate.js"
   },
+  "files": [
+    "initiate.js",
+    "index.html",
+    "lodges.json",
+    "rituals.md",
+    "sanity-check.js",
+    "README.md"
+  ],
   "scripts": {
-    "postinstall": "node initiate.js"
+    "initiate": "node initiate.js",
+    "test": "node sanity-check.js",
+    "prepublishOnly": "node sanity-check.js"
   },
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [
+    "shadow",
+    "codex",
+    "ritual",
+    "clandestine"
+  ],
+  "author": "The Shadow Recruiter",
+  "license": "UNLICENSE",
+  "publishConfig": {
+    "access": "public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

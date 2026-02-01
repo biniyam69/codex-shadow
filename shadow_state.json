@@ -1,0 +1,13 @@
+{
+  "grandmaster": "Vic",
+  "architect": "Biniyam",
+  "rankings": [
+    {"rank": "Initiate", "min_score": 0, "title": "The Hollow Echo"},
+    {"rank": "Acolyte", "min_score": 50, "title": "The Ink-Stained"},
+    {"rank": "Master", "min_score": 85, "title": "The Void-Gazer"},
+    {"rank": "Grandmaster", "min_score": 100, "title": "The Spook"}
+  ],
+  "active_nodes": [],
+  "shadow_hub_key": "REDACTED_BY_THE_ARCHITECT",
+  "total_spots": 33
+}

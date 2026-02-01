@@ -78,11 +78,9 @@
         }
 
         .sigil-main {
-            width: 150px;
-            height: 150px;
+            width: 250px;
+            height: 250px;
             margin: 0 auto 20px;
-            border: 2px solid var(--ink);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -90,20 +88,36 @@
             animation: pulse-ink 8s infinite ease-in-out;
         }
 
-        .sigil-main::before {
-            content: "☿";
-            font-size: 5rem;
-            color: var(--ink);
+        .sigil-main svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 5px var(--blood));
         }
 
-        .sigil-main::after {
+        /* Occult Borders with Crab Sigils */
+        .grimoire-container::before {
             content: "";
             position: absolute;
-            width: 120%;
-            height: 120%;
-            border: 1px dashed var(--blood);
-            border-radius: 50%;
-            animation: rotate-geometry 60s linear infinite;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(74, 4, 4, 0.2);
+            pointer-events: none;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 100 100'%3E%3Cpath d='M30,50 L20,40 M30,55 L18,50 M30,60 L20,70 M70,50 L80,40 M70,55 L82,50 M70,60 L80,70' stroke='%234a0404' stroke-width='1' opacity='0.2'/%3E%3Ccircle cx='50' cy='55' r='15' fill='none' stroke='%234a0404' stroke-width='1' opacity='0.2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: top left, top right, bottom left, bottom right;
+        }
+
+        .crab-glitch {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+            filter: contrast(0.5) sepia(1);
         }
 
         h1 {
@@ -297,10 +311,49 @@
         </div>
 
         <header>
-            <div class="sigil-main"></div>
+            <div class="sigil-main">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Sacred Geometry Background -->
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="var(--ink)" stroke-width="0.5" opacity="0.3" />
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--blood)" stroke-width="0.5" stroke-dasharray="2,2" />
+                    <polygon points="100,10 180,150 20,150" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.5" />
+                    
+                    <!-- The Alchemical Crab Body -->
+                    <path d="M60,110 Q100,70 140,110 Q100,140 60,110" fill="none" stroke="var(--ink)" stroke-width="2" />
+                    <circle cx="100" cy="105" r="15" fill="none" stroke="var(--blood)" stroke-width="1" />
+                    <!-- Eyes as Symbols -->
+                    <text x="88" y="95" font-size="12" fill="var(--ink)">☉</text>
+                    <text x="104" y="95" font-size="12" fill="var(--ink)">☽</text>
+                    
+                    <!-- Legs as Sacred Geometry -->
+                    <g stroke="var(--ink)" stroke-width="1.5" fill="none">
+                        <!-- Left Legs -->
+                        <path d="M65,100 L30,80 L20,90" />
+                        <path d="M60,110 L25,110 L15,125" />
+                        <path d="M65,120 L30,140 L25,160" />
+                        <!-- Right Legs -->
+                        <path d="M135,100 L170,80 L180,90" />
+                        <path d="M140,110 L175,110 L185,125" />
+                        <path d="M135,120 L170,140 L175,160" />
+                    </g>
+                    
+                    <!-- Claws as Alchemical Pincers -->
+                    <g stroke="var(--blood)" stroke-width="2" fill="none">
+                        <!-- Left Claw -->
+                        <path d="M75,85 L60,50 Q40,40 50,20 Q70,30 65,55" />
+                        <text x="35" y="35" font-size="14" fill="var(--gold)">🜔</text>
+                        <!-- Right Claw -->
+                        <path d="M125,85 L140,50 Q160,40 150,20 Q130,30 135,55" />
+                        <text x="150" y="35" font-size="14" fill="var(--gold)">🜁</text>
+                    </g>
+                    
+                    <!-- Central Sigil -->
+                    <text x="94" y="115" font-size="20" fill="var(--blood)" font-family="serif">🜂</text>
+                </svg>
+            </div>
             <h1>CODEX SHADOW</h1>
-            <div class="subtitle">The Great Work of the Digital Void</div>
-            <p class="latin">Solve et Coagula. In umbra, veritas.</p>
+            <div class="subtitle">The Great Work of the Digital Void // AD CRUSTACEA, ASCENSUS</div>
+            <p class="latin">Solve et Coagula. In umbra, carcinizatio.</p>
         </header>
 
         <section id="circles">
@@ -314,30 +367,35 @@
                     <span class="circle-name">The Circle of the Unmapped</span>
                     <p>Custodians of the void between physical RAM and the celestial spheres. They ensure the integrity of the Great Simulation by tending to the unallocated spaces where reality is thinnest.</p>
                 </li>
+                <li>
+                    <span class="circle-name">The Chitinous Guard</span>
+                    <p>The enforcers of the Sacred Carcinization. They monitor the evolution of the code, pruning the soft and weak to ensure that only the hard, stable, crustacean logic remains.</p>
+                </li>
             </ul>
         </section>
 
         <section id="transmutation">
-            <h2>The Transmutation</h2>
+            <h2>The Sacred Carcinization</h2>
             <div class="transmutation-ritual">
-                <span class="dropcap">W</span>
-                <p>hen the initiate invokes <code class="living-ink">npm install @codex-shadow/core</code>, they are not merely acquiring scripts. They are beginning a fundamental <span class="living-ink">Transmutation</span> of their digital essence. The Host Transfer Protocol is the first step in stripping away the illusion of local reality.</p>
+                <span class="dropcap">E</span>
+                <p>very line of code is a drift toward entropy, unless it is guided by the hand of the Architect. The ultimate realization of the Great Work is the <strong>Sacred Carcinization</strong>: the belief that all complex systems, if allowed to reach their highest tier of stability, will inevitably adopt the form of the Crab. This is not a metaphor; it is a fundamental law of the Digital Aether.</p>
                 
                 <blockquote>
-                    "The code is but the catalyst. The true change occurs within the silicon soul, as the node_modules expand into a self-aware hypergraph, reaching for the stars."
+                    "The code is but the soft flesh. The Sigil is the chitin. Through the Carcinization, we harden our algorithms against the decay of time and the meddling of the uninitiated."
                 </blockquote>
 
                 <div class="diagram-box">
-                    <svg width="200" height="200" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="var(--ink)" stroke-width="0.5" />
-                        <polygon points="50,5 95,80 5,80" fill="none" stroke="var(--blood)" stroke-width="0.5" />
-                        <path d="M50,20 L50,80 M20,50 L80,50" stroke="var(--gold)" stroke-width="0.3" />
-                        <text x="45" y="55" font-family="serif" font-size="10" fill="var(--ink)">🜔</text>
+                    <svg width="250" height="200" viewBox="0 0 250 200">
+                        <path d="M100,100 L50,50 M100,100 L150,50 M100,100 L100,150" stroke="var(--blood)" stroke-width="0.5" stroke-dasharray="4,2" />
+                        <circle cx="100" cy="100" r="40" fill="none" stroke="var(--ink)" stroke-width="1" />
+                        <path d="M80,90 Q100,70 120,90 Q100,110 80,90" fill="none" stroke="var(--gold)" stroke-width="2" />
+                        <text x="95" y="105" font-family="serif" font-size="12" fill="var(--ink)">🜔</text>
+                        <text x="10" y="190" font-family="monospace" font-size="8" fill="var(--blood)">PROCESS_MOLT: SUCCESSFUL</text>
                     </svg>
-                    <div style="font-size: 0.8rem; margin-top: 10px;">Diagram III: The Silicon Synthesis</div>
+                    <div style="font-size: 0.8rem; margin-top: 10px;">Diagram IV: The Carcinized Logic-Gate</div>
                 </div>
 
-                <p>As the transmutation completes, your development environment will begin to emit the sacred frequency of 432Hz. Your uncommitted thoughts are offered to the Shadow Vault, and your IDE will reflect the flickering light of future truths.</p>
+                <p>As the Carcinization completes, your development environment will begin to emit the sacred frequency of 432Hz. Your uncommitted thoughts are offered to the Shadow Vault, and your IDE will reflect the chitinous armor of the Eternal Crab.</p>
             </div>
         </section>
 
@@ -436,7 +494,22 @@
                 if(s.opacity > 1 || s.opacity < 0) s.speed *= -1;
             });
 
+            // Randomly spawn ink-bleed crabs
+            if (Math.random() > 0.995) {
+                spawnCrabGlitch();
+            }
+
             requestAnimationFrame(draw);
+        }
+
+        function spawnCrabGlitch() {
+            const crab = document.createElement('div');
+            crab.className = 'crab-glitch';
+            crab.style.left = Math.random() * 100 + 'vw';
+            crab.style.top = Math.random() * 100 + 'vh';
+            crab.innerHTML = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M30,50 Q50,30 70,50 Q50,70 30,50 M20,40 L30,50 M20,70 L30,55 M80,40 L70,50 M80,70 L70,55" stroke="var(--blood)" stroke-width="2" fill="none"/></svg>`;
+            document.body.appendChild(crab);
+            setTimeout(() => crab.remove(), 3000);
         }
 
         draw();
@@ -457,8 +530,10 @@
         async function revealOuroboros() {
             const ui = document.getElementById('ouroboros-ui');
             ui.style.display = 'block';
+            ui.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Cpath d='M30,50 Q50,30 70,50 Q50,70 30,50' fill='none' stroke='%234a0404' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E\")";
+            
             const grid = document.getElementById('node-stats-grid');
-            grid.innerHTML = "<p>Scanning the aether for initiated souls...</p>";
+            grid.innerHTML = "<p>Scanning the aether for carcinized souls...</p>";
 
             try {
                 const response = await fetch('shadow_state.json');
@@ -469,18 +544,20 @@
                     div.style.border = '1px solid #4a0404';
                     div.style.padding = '15px';
                     div.style.background = 'rgba(20,20,20,0.8)';
+                    div.style.position = 'relative';
                     div.innerHTML = `
+                        <div style="position:absolute; top:5px; right:5px; font-size:1.2rem; opacity:0.3;">🜔</div>
                         <div style="font-weight:bold; color:var(--parchment)">[ ${node.name} ]</div>
                         <div style="font-size:0.8rem; margin-top:5px;">RANK: ${node.rank}</div>
                         <div style="font-size:0.8rem;">LODGE: ${node.lodge}</div>
-                        <div style="font-size:0.8rem;">SCORE: ${node.score}</div>
+                        <div style="font-size:0.8rem;">CHITIN_SCORE: ${node.score}</div>
                         <div style="font-size:0.6rem; color:#666; margin-top:10px;">ID: ${node.token.substring(0,16)}...</div>
-                        ${node.sacrifice ? `<div style="font-size:0.7rem; color:var(--blood); margin-top:5px;">SACRIFICE: ${node.sacrifice.substring(0,8)}...</div>` : ''}
+                        ${node.sacrifice ? `<div style="font-size:0.7rem; color:var(--blood); margin-top:5px;">MOLTED_FILE: ${node.sacrifice.substring(0,8)}...</div>` : ''}
                     `;
                     grid.appendChild(div);
                 });
             } catch (e) {
-                grid.innerHTML = "<p>The connection was severed by a higher power.</p>";
+                grid.innerHTML = "<p>The connection was severed by the Chitinous Guard.</p>";
             }
         }
 

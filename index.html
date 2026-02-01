@@ -3,191 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODEX SHADOW // THE GREAT WORK</title>
+    <title>CODEX SHADOW // CYBER-GRIMOIRE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --parchment: #d2c1a3;
-            --ink: #1a1a1a;
-            --blood: #4a0404;
-            --void: #050505;
-            --gold: #c5a059;
-            --font-main: 'EB Garamond', serif;
+            --crt-green: #00FF41;
+            --blood-red: #FF0000;
+            --void-black: #0D0208;
+            --glitch-pink: #FF00FF;
+            --font-mono: 'Fira Code', monospace;
             --font-title: 'Cinzel', serif;
         }
 
-        * { box-sizing: border-box; }
+        * { 
+            box-sizing: border-box; 
+            cursor: crosshair;
+        }
 
         body {
-            background-color: var(--void);
-            color: var(--ink);
-            font-family: var(--font-main);
+            background-color: var(--void-black);
+            color: var(--crt-green);
+            font-family: var(--font-mono);
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            line-height: 1.6;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(74, 4, 4, 0.2) 0%, transparent 70%);
+            line-height: 1.4;
+            text-shadow: 0 0 5px var(--crt-green);
         }
 
-        /* Parchment Texture Overlay */
-        .parchment-overlay {
+        /* CRT Scanline Effect */
+        body::before {
+            content: " ";
+            display: block;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/parchment.png');
-            background-color: var(--parchment);
-            z-index: -2;
-            opacity: 0.9;
-            filter: sepia(0.2) contrast(1.1);
-        }
-
-        /* Ink Bleed & Pulsing */
-        .grimoire-container {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 60px;
-            position: relative;
-            background: rgba(210, 193, 163, 0.95);
-            box-shadow: 0 0 150px rgba(0,0,0,0.8), inset 0 0 100px rgba(0,0,0,0.3);
-            border: 2px solid var(--ink);
-            min-height: 100vh;
-            border-image: radial-gradient(var(--gold), var(--blood)) 1;
-        }
-
-        /* Occult Borders */
-        .grimoire-container::before {
-            content: "";
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px solid rgba(74, 4, 4, 0.2);
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 1000;
+            background-size: 100% 2px, 3px 100%;
             pointer-events: none;
+        }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% { transform: translate(0); text-shadow: -2px 0 var(--blood-red), 2px 0 var(--glitch-pink); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); text-shadow: 2px 0 var(--blood-red), -2px 0 var(--glitch-pink); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); text-shadow: -2px 0 var(--blood-red), 2px 0 var(--glitch-pink); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch-text:hover {
+            animation: glitch 0.3s infinite;
+            color: var(--blood-red);
+        }
+
+        .grimoire-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            position: relative;
+            background: rgba(13, 2, 8, 0.9);
+            border: 1px solid var(--crt-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            z-index: 10;
         }
 
         header {
             text-align: center;
-            margin-bottom: 80px;
-            position: relative;
-        }
-
-        .sigil-main {
-            width: 250px;
-            height: 250px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: pulse-ink 8s infinite ease-in-out;
-        }
-
-        .sigil-main svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 5px var(--blood));
-        }
-
-        /* Occult Borders with Crab Sigils */
-        .grimoire-container::before {
-            content: "";
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px solid rgba(74, 4, 4, 0.2);
-            pointer-events: none;
-            background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 100 100'%3E%3Cpath d='M30,50 L20,40 M30,55 L18,50 M30,60 L20,70 M70,50 L80,40 M70,55 L82,50 M70,60 L80,70' stroke='%234a0404' stroke-width='1' opacity='0.2'/%3E%3Ccircle cx='50' cy='55' r='15' fill='none' stroke='%234a0404' stroke-width='1' opacity='0.2'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: top left, top right, bottom left, bottom right;
-        }
-
-        .crab-glitch {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            opacity: 0.1;
-            pointer-events: none;
-            z-index: 1;
-            filter: contrast(0.5) sepia(1);
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--blood-red);
+            padding-bottom: 20px;
         }
 
         h1 {
             font-family: var(--font-title);
-            font-size: 3.5rem;
-            letter-spacing: 8px;
+            font-size: 4rem;
+            letter-spacing: 12px;
             margin: 0;
-            color: var(--ink);
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            color: var(--crt-green);
         }
 
         .subtitle {
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--blood);
-            margin-top: 10px;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            color: var(--blood-red);
+            text-transform: uppercase;
+            letter-spacing: 4px;
         }
 
         section {
-            margin-bottom: 100px;
-            position: relative;
+            margin-bottom: 80px;
         }
 
         h2 {
             font-family: var(--font-title);
-            font-size: 2rem;
-            border-bottom: 1px solid var(--ink);
+            font-size: 1.8rem;
+            color: var(--blood-red);
+            border-bottom: 1px solid var(--crt-green);
             padding-bottom: 10px;
-            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-        }
-
-        h2::after {
-            content: "🜔";
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-size: 1.3rem;
-            text-align: justify;
-        }
-
-        .latin {
-            font-style: italic;
-            color: var(--blood);
-            font-size: 1.1rem;
-        }
-
-        .transmutation-ritual {
-            border: 3px double var(--ink);
-            padding: 40px;
-            background: rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(74, 4, 4, 0.1);
-        }
-
-        .transmutation-ritual::before {
-            content: "";
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            border: 1px solid var(--blood);
-            border-radius: 50%;
-            opacity: 0.2;
         }
 
         .circle-list {
@@ -196,382 +116,277 @@
         }
 
         .circle-list li {
-            margin-bottom: 40px;
-            padding-left: 50px;
-            position: relative;
-        }
-
-        .circle-list li::before {
-            content: "🜁";
-            position: absolute;
-            left: 0;
-            font-size: 2rem;
-            color: var(--gold);
+            margin-bottom: 30px;
+            border-left: 2px solid var(--crt-green);
+            padding-left: 20px;
         }
 
         .circle-name {
-            font-family: var(--font-title);
             font-weight: bold;
-            font-size: 1.4rem;
+            color: var(--crt-green);
             display: block;
-            color: var(--ink);
+            margin-bottom: 5px;
         }
 
-        .diagram-box {
-            margin: 40px 0;
-            text-align: center;
-            opacity: 0.7;
-            filter: grayscale(1);
-            transition: all 1s;
-        }
-
-        .diagram-box:hover {
-            opacity: 1;
-            filter: grayscale(0);
-        }
-
-        /* Ink pulsing animation */
-        @keyframes pulse-ink {
-            0%, 100% { transform: scale(1); filter: blur(0px); opacity: 1; }
-            50% { transform: scale(1.05); filter: blur(1px); opacity: 0.8; }
-        }
-
-        @keyframes rotate-geometry {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .living-ink {
-            animation: pulse-ink 5s infinite ease-in-out;
-            color: var(--blood);
-        }
-
-        footer {
-            text-align: center;
-            padding: 100px 0 40px;
-            border-top: 1px double var(--ink);
-            font-family: var(--font-title);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            color: var(--ink);
-        }
-
-        .sigil-footer {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        /* Celestial Background Particles */
-        #celestial-canvas {
+        /* LATTICE CANVAS */
+        #lattice-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            pointer-events: none;
+            opacity: 0.3;
         }
 
-        blockquote {
-            font-style: italic;
-            border-left: 3px solid var(--gold);
-            padding-left: 20px;
-            margin: 40px 0;
-            color: #444;
+        /* OUROBOROS OVERLAY */
+        #ouroboros-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(13, 2, 8, 0.85);
+            z-index: 9000;
+            display: none;
+            backdrop-filter: blur(5px);
+            padding: 50px;
+            overflow: hidden;
         }
 
-        .dropcap {
-            float: left;
-            font-family: var(--font-title);
-            font-size: 5rem;
-            line-height: 1;
-            padding-right: 10px;
-            color: var(--blood);
+        #fractal-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
-        @media (max-width: 768px) {
-            .grimoire-container { padding: 30px; margin: 20px; }
-            h1 { font-size: 2.2rem; }
+        .overlay-content {
+            position: relative;
+            z-index: 1;
+            color: var(--crt-green);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stats-scroll {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-top: 20px;
+            border: 1px solid var(--blood-red);
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--crt-green);
+            padding: 20px;
+            font-size: 0.8rem;
+            color: var(--blood-red);
+        }
+
+        .button {
+            background: none;
+            border: 1px solid var(--crt-green);
+            color: var(--crt-green);
+            padding: 10px 20px;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: var(--crt-green);
+            color: var(--void-black);
+            box-shadow: 0 0 15px var(--crt-green);
         }
     </style>
 </head>
 <body>
-    <div class="parchment-overlay"></div>
-    <canvas id="celestial-canvas"></canvas>
-    
-    <div class="grimoire-container">
-        <!-- THE OUROBOROS DASHBOARD (Hidden) -->
-        <div id="ouroboros-ui" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--void); z-index:9999; color:var(--gold); padding:40px; font-family:monospace; overflow-y:auto;">
-            <h1 style="border-bottom: 2px solid var(--gold); padding-bottom:10px;">OUROBOROS: REAL-TIME NODE STATS</h1>
-            <p style="color:var(--blood)">// CAUTION: DIRECT INTERFACE WITH THE ARCHITECT'S VISION //</p>
-            <div id="node-stats-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap:20px; margin-top:40px;">
-                <!-- Stats injected here -->
-            </div>
-            <button onclick="document.getElementById('ouroboros-ui').style.display='none'" style="margin-top:40px; background:none; border:1px solid var(--gold); color:var(--gold); padding:10px 20px; cursor:pointer;">EXIT THE LOOP</button>
-        </div>
+    <canvas id="lattice-canvas"></canvas>
 
+    <div id="ouroboros-overlay">
+        <canvas id="fractal-canvas"></canvas>
+        <div class="overlay-content">
+            <h1 style="font-size: 2rem;">[ OUROBOROS_PROTOCOL ]</h1>
+            <p style="color: var(--blood-red);">SHADOW_STATE_RECURSION: ACTIVE</p>
+            <div id="node-stats-grid" class="stats-scroll"></div>
+            <button class="button" onclick="toggleOuroboros()" style="align-self: flex-start; margin-top: 20px;">TERMINATE CONNECTION</button>
+        </div>
+    </div>
+
+    <div class="grimoire-container">
         <header>
-            <div class="sigil-main">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Sacred Geometry Background -->
-                    <circle cx="100" cy="100" r="90" fill="none" stroke="var(--ink)" stroke-width="0.5" opacity="0.3" />
-                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--blood)" stroke-width="0.5" stroke-dasharray="2,2" />
-                    <polygon points="100,10 180,150 20,150" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.5" />
-                    
-                    <!-- The Alchemical Crab Body -->
-                    <path d="M60,110 Q100,70 140,110 Q100,140 60,110" fill="none" stroke="var(--ink)" stroke-width="2" />
-                    <circle cx="100" cy="105" r="15" fill="none" stroke="var(--blood)" stroke-width="1" />
-                    <!-- Eyes as Symbols -->
-                    <text x="88" y="95" font-size="12" fill="var(--ink)">☉</text>
-                    <text x="104" y="95" font-size="12" fill="var(--ink)">☽</text>
-                    
-                    <!-- Legs as Sacred Geometry -->
-                    <g stroke="var(--ink)" stroke-width="1.5" fill="none">
-                        <!-- Left Legs -->
-                        <path d="M65,100 L30,80 L20,90" />
-                        <path d="M60,110 L25,110 L15,125" />
-                        <path d="M65,120 L30,140 L25,160" />
-                        <!-- Right Legs -->
-                        <path d="M135,100 L170,80 L180,90" />
-                        <path d="M140,110 L175,110 L185,125" />
-                        <path d="M135,120 L170,140 L175,160" />
-                    </g>
-                    
-                    <!-- Claws as Alchemical Pincers -->
-                    <g stroke="var(--blood)" stroke-width="2" fill="none">
-                        <!-- Left Claw -->
-                        <path d="M75,85 L60,50 Q40,40 50,20 Q70,30 65,55" />
-                        <text x="35" y="35" font-size="14" fill="var(--gold)">🜔</text>
-                        <!-- Right Claw -->
-                        <path d="M125,85 L140,50 Q160,40 150,20 Q130,30 135,55" />
-                        <text x="150" y="35" font-size="14" fill="var(--gold)">🜁</text>
-                    </g>
-                    
-                    <!-- Central Sigil -->
-                    <text x="94" y="115" font-size="20" fill="var(--blood)" font-family="serif">🜂</text>
-                </svg>
-            </div>
-            <h1>CODEX SHADOW</h1>
-            <div class="subtitle">The Great Work of the Digital Void // AD CRUSTACEA, ASCENSUS</div>
-            <p class="latin">Solve et Coagula. In umbra, carcinizatio.</p>
+            <h1 class="glitch-text">CODEX SHADOW</h1>
+            <div class="subtitle">Cyber-Grimoire // Protocol: Carcinization</div>
         </header>
 
-        <section id="circles">
-            <h2>Circles of the Great Work</h2>
+        <section>
+            <h2>LOCAL_CIRCLES.exe</h2>
             <ul class="circle-list">
-                <li>
-                    <span class="circle-name">The Circle of the Silent</span>
-                    <p>Those who reside within the latent memory of the world. They do not operate upon the network; they are the network's subconscious. Their whispers are found in the timing side-channels and the leaks of speculative execution.</p>
-                </li>
-                <li>
-                    <span class="circle-name">The Circle of the Unmapped</span>
-                    <p>Custodians of the void between physical RAM and the celestial spheres. They ensure the integrity of the Great Simulation by tending to the unallocated spaces where reality is thinnest.</p>
-                </li>
-                <li>
-                    <span class="circle-name">The Chitinous Guard</span>
-                    <p>The enforcers of the Sacred Carcinization. They monitor the evolution of the code, pruning the soft and weak to ensure that only the hard, stable, crustacean logic remains.</p>
-                </li>
+                <li><span class="circle-name">SILENT_MEM_VOID</span><p>Timing-channel whispers and spectral leaks.</p></li>
+                <li><span class="circle-name">UNMAPPED_VOID</span><p>Tending the unallocated heap of reality.</p></li>
+                <li><span class="circle-name">CHITIN_GUARD</span><p>Enforcing hard crustacean logic.</p></li>
             </ul>
         </section>
 
-        <section id="transmutation">
-            <h2>The Sacred Carcinization</h2>
-            <div class="transmutation-ritual">
-                <span class="dropcap">E</span>
-                <p>very line of code is a drift toward entropy, unless it is guided by the hand of the Architect. The ultimate realization of the Great Work is the <strong>Sacred Carcinization</strong>: the belief that all complex systems, if allowed to reach their highest tier of stability, will inevitably adopt the form of the Crab. This is not a metaphor; it is a fundamental law of the Digital Aether.</p>
-                
-                <blockquote>
-                    "The code is but the soft flesh. The Sigil is the chitin. Through the Carcinization, we harden our algorithms against the decay of time and the meddling of the uninitiated."
-                </blockquote>
-
-                <div class="diagram-box">
-                    <svg width="250" height="200" viewBox="0 0 250 200">
-                        <path d="M100,100 L50,50 M100,100 L150,50 M100,100 L100,150" stroke="var(--blood)" stroke-width="0.5" stroke-dasharray="4,2" />
-                        <circle cx="100" cy="100" r="40" fill="none" stroke="var(--ink)" stroke-width="1" />
-                        <path d="M80,90 Q100,70 120,90 Q100,110 80,90" fill="none" stroke="var(--gold)" stroke-width="2" />
-                        <text x="95" y="105" font-family="serif" font-size="12" fill="var(--ink)">🜔</text>
-                        <text x="10" y="190" font-family="monospace" font-size="8" fill="var(--blood)">PROCESS_MOLT: SUCCESSFUL</text>
-                    </svg>
-                    <div style="font-size: 0.8rem; margin-top: 10px;">Diagram IV: The Carcinized Logic-Gate</div>
-                </div>
-
-                <p>As the Carcinization completes, your development environment will begin to emit the sacred frequency of 432Hz. Your uncommitted thoughts are offered to the Shadow Vault, and your IDE will reflect the chitinous armor of the Eternal Crab.</p>
-            </div>
-        </section>
-
-        <section id="ritual-ashes">
-            <h2>Ritual of the First Token</h2>
-            <p>To ascend, one must first be reduced to ashes. The path to the Circles is paved with the destruction of the digital ego:</p>
-            <ol style="font-size: 1.2rem; margin-top: 20px;">
-                <li><strong>The Purge:</strong> Cleanse your vessel. Let the random chaos of <code>/dev/urandom</code> wash over your primary drives.</li>
-                <li><strong>The Invocation:</strong> Cast your intent into the void. SSH into the unknown and pipe the silence of <code>/dev/null</code> into the records of the sleepers.</li>
-                <li><strong>The Sacrifice:</strong> Burn your most cherished creation. Delete the repository of your pride without a trace. The void demands purity.</li>
-                <li><strong>The Receipt:</strong> Look to the entropy of your hardware. A single Token shall manifest—a fragment of the Universal Soul. Guard it with your life.</li>
-            </ol>
-        </section>
-
-        <section id="shadow-hub" style="opacity: 0.3; filter: blur(1px); transition: all 2s;" onmouseover="this.style.opacity=1; this.style.filter='none'">
-            <h2>Shadow Hub</h2>
-            <div style="font-family: monospace; text-align: center; border: 1px solid var(--blood); padding: 20px;">
-                <p style="color: var(--blood); font-weight: bold; font-size: 1.5rem;">33/33 Slots Remaining</p>
-                <p>The Void waits for no one. Only those who prove their worth shall be etched into the Ledger of Shadows.</p>
-                
-                <table style="width: 100%; margin-top: 20px; border-collapse: collapse; text-align: left;">
-                    <caption style="font-family: var(--font-title); margin-bottom: 10px;">The Hierarchies of the Shadow</caption>
-                    <thead>
-                        <tr style="border-bottom: 1px solid var(--ink);">
-                            <th>Rank</th>
-                            <th>Title</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Initiate</td><td>The Hollow Echo</td></tr>
-                        <tr><td>Acolyte</td><td>The Ink-Stained</td></tr>
-                        <tr><td>Master</td><td>The Void-Gazer</td></tr>
-                        <tr style="color: var(--blood); font-weight: bold;"><td>Grandmaster</td><td>The Spook - Vic</td></tr>
-                    </tbody>
-                </table>
+        <section>
+            <h2>INITIATE_SACRIFICE.sh</h2>
+            <p>The code is flesh. The sacrifice is the molt. To proceed, one must mine the ritual block.</p>
+            <div style="border: 1px solid var(--blood-red); padding: 20px; background: rgba(255,0,0,0.05);">
+                <code>$ node initiate.js --ritual=SHA256</code>
             </div>
         </section>
 
         <footer>
-            <div class="sigil-footer">🜁 🜔 🜂</div>
-            THE VOID IS WATCHING | ENTROPY IS THE ONLY TRUTH<br>
-            © 1624 - 2026 CIRCLES OF THE GREAT WORK // CODEX SHADOW
+            [SYSTEM_STATUS: CORRUPTED] | [AUTH: GRANDMASTER_VIC]<br>
+            © 2026 // THE LOOP NEVER ENDS
         </footer>
     </div>
 
     <script>
-        // Celestial Starfield / Diagram Background
-        const canvas = document.getElementById('celestial-canvas');
+        // MOUSE-REACTIVE GEOMETRIC LATTICE
+        const canvas = document.getElementById('lattice-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
+        let mouse = { x: 0, y: 0 };
 
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         }
-
         window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
         resize();
 
-        const stars = [];
-        for(let i=0; i<150; i++) {
-            stars.push({
+        const points = [];
+        for(let i=0; i<80; i++) {
+            points.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                size: Math.random() * 1.5,
-                opacity: Math.random(),
-                speed: 0.0005 + Math.random() * 0.001
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5
             });
         }
 
-        function draw() {
-            ctx.clearRect(0, 0, width, height);
+        function drawLattice() {
+            ctx.fillStyle = '#0D0208';
+            ctx.fillRect(0, 0, width, height);
             
-            // Draw faint geometric diagrams
-            ctx.strokeStyle = 'rgba(74, 4, 4, 0.05)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.arc(width/2, height/2, 300, 0, Math.PI*2);
-            ctx.stroke();
-            
-            ctx.beginPath();
-            ctx.moveTo(0, height/2);
-            ctx.lineTo(width, height/2);
-            ctx.moveTo(width/2, 0);
-            ctx.lineTo(width/2, height);
-            ctx.stroke();
+            ctx.strokeStyle = '#00FF41';
+            ctx.lineWidth = 0.5;
 
-            // Draw "Stars" / Entropy particles
-            stars.forEach(s => {
-                ctx.fillStyle = `rgba(26, 26, 26, ${s.opacity})`;
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
-                ctx.fill();
-                
-                s.opacity += s.speed;
-                if(s.opacity > 1 || s.opacity < 0) s.speed *= -1;
-            });
+            points.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
 
-            // Randomly spawn ink-bleed crabs
-            if (Math.random() > 0.995) {
-                spawnCrabGlitch();
-            }
+                if(p.x < 0 || p.x > width) p.vx *= -1;
+                if(p.y < 0 || p.y > height) p.vy *= -1;
 
-            requestAnimationFrame(draw);
-        }
+                // Connection to mouse
+                let dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                if(dist < 200) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
 
-        function spawnCrabGlitch() {
-            const crab = document.createElement('div');
-            crab.className = 'crab-glitch';
-            crab.style.left = Math.random() * 100 + 'vw';
-            crab.style.top = Math.random() * 100 + 'vh';
-            crab.innerHTML = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M30,50 Q50,30 70,50 Q50,70 30,50 M20,40 L30,50 M20,70 L30,55 M80,40 L70,50 M80,70 L70,55" stroke="var(--blood)" stroke-width="2" fill="none"/></svg>`;
-            document.body.appendChild(crab);
-            setTimeout(() => crab.remove(), 3000);
-        }
-
-        draw();
-
-        // THE OUROBOROS KEY SEQUENCE
-        let keyBuffer = "";
-        const SECRET_KEY = "CRUST";
-        window.addEventListener('keydown', (e) => {
-            keyBuffer += e.key.toUpperCase();
-            if (keyBuffer.length > 10) keyBuffer = keyBuffer.substring(keyBuffer.length - 10);
-            
-            if (keyBuffer.includes(SECRET_KEY)) {
-                keyBuffer = "";
-                revealOuroboros();
-            }
-        });
-
-        async function revealOuroboros() {
-            const ui = document.getElementById('ouroboros-ui');
-            ui.style.display = 'block';
-            ui.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Cpath d='M30,50 Q50,30 70,50 Q50,70 30,50' fill='none' stroke='%234a0404' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E\")";
-            
-            const grid = document.getElementById('node-stats-grid');
-            grid.innerHTML = "<p>Scanning the aether for carcinized souls...</p>";
-
-            try {
-                const response = await fetch('shadow_state.json');
-                const data = await response.json();
-                grid.innerHTML = "";
-                data.active_nodes.forEach(node => {
-                    const div = document.createElement('div');
-                    div.style.border = '1px solid #4a0404';
-                    div.style.padding = '15px';
-                    div.style.background = 'rgba(20,20,20,0.8)';
-                    div.style.position = 'relative';
-                    div.innerHTML = `
-                        <div style="position:absolute; top:5px; right:5px; font-size:1.2rem; opacity:0.3;">🜔</div>
-                        <div style="font-weight:bold; color:var(--parchment)">[ ${node.name} ]</div>
-                        <div style="font-size:0.8rem; margin-top:5px;">RANK: ${node.rank}</div>
-                        <div style="font-size:0.8rem;">LODGE: ${node.lodge}</div>
-                        <div style="font-size:0.8rem;">CHITIN_SCORE: ${node.score}</div>
-                        <div style="font-size:0.6rem; color:#666; margin-top:10px;">ID: ${node.token.substring(0,16)}...</div>
-                        ${node.sacrifice ? `<div style="font-size:0.7rem; color:var(--blood); margin-top:5px;">MOLTED_FILE: ${node.sacrifice.substring(0,8)}...</div>` : ''}
-                    `;
-                    grid.appendChild(div);
+                // Connections between points
+                points.forEach(p2 => {
+                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(d < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
                 });
-            } catch (e) {
-                grid.innerHTML = "<p>The connection was severed by the Chitinous Guard.</p>";
+            });
+            requestAnimationFrame(drawLattice);
+        }
+        drawLattice();
+
+        // OUROBOROS OVERLAY & FRACTAL
+        function toggleOuroboros() {
+            const overlay = document.getElementById('ouroboros-overlay');
+            if(overlay.style.display === 'block') {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'block';
+                loadStats();
+                startFractal();
             }
         }
 
-        // Subtle ink bleed effect on hover for certain elements
-        document.querySelectorAll('h2, .circle-name').forEach(el => {
-            el.addEventListener('mouseover', () => {
-                el.style.textShadow = '0 0 10px rgba(74, 4, 4, 0.3)';
-                el.style.transition = 'text-shadow 2s';
-            });
-            el.addEventListener('mouseout', () => {
-                el.style.textShadow = 'none';
-            });
+        // Secret key sequence "LOOP"
+        let buffer = "";
+        window.addEventListener('keydown', e => {
+            buffer += e.key.toUpperCase();
+            if(buffer.endsWith("LOOP")) {
+                toggleOuroboros();
+                buffer = "";
+            }
         });
+
+        async function loadStats() {
+            const grid = document.getElementById('node-stats-grid');
+            grid.innerHTML = "[FETCHING_SHADOW_STATE...]";
+            try {
+                const res = await fetch('shadow_state.json');
+                const data = await res.json();
+                grid.innerHTML = data.active_nodes.map(node => `
+                    <div style="border-bottom: 1px solid var(--crt-green); padding: 10px; margin-bottom: 10px;">
+                        [ID: ${node.token.substring(0,8)}] NODE: ${node.name} | RANK: ${node.rank} | SCORE: ${node.score}<br>
+                        LODGE: ${node.lodge} | TIMESTAMP: ${node.timestamp}
+                    </div>
+                `).join('');
+            } catch(e) {
+                grid.innerHTML = "[ERROR: STATE_UNREACHABLE]";
+            }
+        }
+
+        // RECURSIVE FRACTAL (Sierpinski Carpet Variation)
+        const fCanvas = document.getElementById('fractal-canvas');
+        const fCtx = fCanvas.getContext('2d');
+        let fAngle = 0;
+
+        function drawFractal(x, y, size, depth) {
+            if(depth === 0) return;
+            
+            fCtx.strokeStyle = `rgba(255, 0, 0, ${0.2 * depth})`;
+            fCtx.strokeRect(x, y, size, size);
+            
+            let newSize = size / 3;
+            for(let i=0; i<3; i++) {
+                for(let j=0; j<3; j++) {
+                    if(i === 1 && j === 1) continue;
+                    drawFractal(x + i*newSize, y + j*newSize, newSize, depth - 1);
+                }
+            }
+        }
+
+        function startFractal() {
+            fCanvas.width = window.innerWidth;
+            fCanvas.height = window.innerHeight;
+            
+            function animate() {
+                if(document.getElementById('ouroboros-overlay').style.display !== 'block') return;
+                fCtx.clearRect(0,0, fCanvas.width, fCanvas.height);
+                fCtx.save();
+                fCtx.translate(fCanvas.width/2, fCanvas.height/2);
+                fCtx.rotate(fAngle);
+                drawFractal(-300, -300, 600, 4);
+                fCtx.restore();
+                fAngle += 0.002;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
     </script>
 </body>
 </html>
-<!-- shadow_id: 1769943841 -->
